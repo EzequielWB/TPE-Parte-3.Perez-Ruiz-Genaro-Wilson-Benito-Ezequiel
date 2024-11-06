@@ -49,6 +49,15 @@ class MoviesModel {
 
         return $movies; //esto se pasa al view
     }
+
+    function getMoviesByGenreId($id) {
+
+        $sql = 'SELECT * FROM peliculas WHERE genero = ?';
+
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+        return $query->fetchAll(PDO::FETCH_OBJ); 
+    }
     
 }
 

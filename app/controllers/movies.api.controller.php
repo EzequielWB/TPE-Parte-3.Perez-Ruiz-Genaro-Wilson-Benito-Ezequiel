@@ -49,5 +49,18 @@ class MovieApiController {
 
         return $this->view->response($movies);//Actualizo vista
     }
+
+    public function getMoviesByGenreId($req,$res) {
+
+        $id = $req->params->id;
+
+        $movieGenreId = $this->model->getMoviesByGenreId($id);
+
+        if (!$movieGenreId) {
+            return $this->view->response("no existe pelicula con el genero id=$id", 404);
+        }
+
+        return $this->view->response($movieGenreId);
+    }
 }
 
