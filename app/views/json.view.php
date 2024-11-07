@@ -2,11 +2,11 @@
     
     class JSONView {
 
-        public function response($body, $status = 200) { // renderiza el objeto como json (la respuesta HTML)
+        public function response($data, $status = 200) { // renderiza el objeto como json (la respuesta HTML)
             header ("Content-Type:application/json"); //muestra respuesta
             $statusText = $this->_requestStatus($status); //guion bajo para recordar que es prviado
             header ("HTTP/1.1 $status $statusText");
-            echo json_encode($body); //codifica como json y lo imprime
+            echo json_encode($data); //codifica como json y lo imprime
         } 
 
         private function _requestStatus($code) {

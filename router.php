@@ -11,6 +11,7 @@ $router->addRoute('generos/:id','GET','GenreApiController','getGenreById');
 
 $router->addRoute('peliculas','GET','MovieApiController','getAllMovies');
 $router->addRoute('peliculas/:id','GET','MovieApiController','getMoviesByGenreId');
+$router->addRoute('peliculas/:id','DELETE','MovieApiController','deleteMovieById');
 
 
 //                    generos/12

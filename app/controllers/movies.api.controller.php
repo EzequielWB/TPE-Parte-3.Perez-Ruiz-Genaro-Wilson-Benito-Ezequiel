@@ -62,5 +62,19 @@ class MovieApiController {
 
         return $this->view->response($movieGenreId);
     }
+
+    public function deleteMovieById($req,$res) {
+
+        $id = $req->params->id;
+
+        $movieGenreId = $this->model->getMoviesByGenreId($id);
+
+        if (!$movieGenreId) {
+            return $this->view->response("no existe pelicula con el genero id=$id", 404);
+        }
+
+        $this->model->eraseMovie($id);
+        $this->view->response("La pelicula con el id=$id se elimino con exito");
+    }
 }
 

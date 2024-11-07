@@ -58,6 +58,13 @@ class MoviesModel {
         $query->execute([$id]);
         return $query->fetchAll(PDO::FETCH_OBJ); 
     }
+
+    public function eraseMovie($id) {
+        $sql = 'DELETE FROM peliculas WHERE id = ?';
+
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+    }
     
 }
 
