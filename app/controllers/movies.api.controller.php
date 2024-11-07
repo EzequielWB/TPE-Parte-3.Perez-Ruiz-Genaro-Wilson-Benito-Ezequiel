@@ -88,7 +88,7 @@ class MovieApiController {
             return $this->view->response("no existe pelicula con el genero id=$id", 404);
         }
 
-        if (empty($req->body->nombre) || empty($req->body->director)|| empty($req->body->genero)) {
+        if (empty($req->body->nombre) || empty($req->body->director) || empty($req->body->genero)) {
             return $this->view->response ("faltan datos", 400);
         }
 
@@ -105,5 +105,30 @@ class MovieApiController {
         $this->view->response($movieId,200); //devuelvo respuesta
 
     }
+}
+
+class ReviewApiController{
+
+    private $model;
+    private $view;
+
+    function __construct() { //el constructor es necesario ya que inicializamos el modelo y vista
+        $this->model = new reviewModel();
+        $this->view = new JSONView();
+    }
+
+    function getReviewByMovieId($req, $res){
+
+        $id = $req->params->id;
+
+        $review = $this->model->getReviewMovieById($id);
+
+        if (!$review) {
+            return $this->view->response("no existe reseña para pelicula con id=$id", 404);
+        }
+
+        return $this->view->response ($review);
+    }
+
 }
 

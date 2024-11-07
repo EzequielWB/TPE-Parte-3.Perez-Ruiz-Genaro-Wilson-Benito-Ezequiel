@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2024 a las 22:00:16
+-- Tiempo de generación: 07-11-2024 a las 23:43:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -63,14 +63,11 @@ CREATE TABLE `peliculas` (
 --
 
 INSERT INTO `peliculas` (`id`, `nombre`, `director`, `descripcion`, `genero`) VALUES
-(1, 'Accion Desenfrenada', 'Juan Acciones', 'Pelicula de Accion', 3),
-(3, 'Amor desenfrenado', 'Alfedro Amoroso', 'Amor y amor', 4),
 (4, 'Muerte frenetica', 'Manuel Federico', 'En esta pelicula podras encontrar mucha muerte', 3),
-(9, 'Los gritos del bosque', 'Jorge Escalofríos', 'Un bosque donde los árboles gritan en la noche', 1),
+(9, 'Pelicula loca', 'Fede', 'Saludar a nadie', 4),
 (10, 'Risas inesperadas terrorificas', 'Sofía Alegre', 'Una serie de eventos hilarantes y fuera de control', 1),
-(19, 'Fuerza de acero', 'Ana Férrea', 'Una agente secreta lucha contra una organización criminal', 3),
 (20, 'El amor inesperado', 'Juan Corazón', 'Dos extraños que se enamoran durante un viaje', 4),
-(21, 'Besos en París', 'Ana Romántica', 'Una historia de amor ambientada en la ciudad del amor', 4),
+(21, 'Saludar', 'Fede', 'Saludar a todos', 4),
 (25, 'Aventuras terrorificas', 'Marcos Diabolico', 'Terror sin fin', 1),
 (26, 'Los secretos de la luna', 'Ana Lunática', 'Una historia mágica que se desarrolla en la luna', 4),
 (27, 'Robo galáctico', 'Juan Extraterrestre', 'Un robo que trasciende las estrellas', 1),
@@ -88,6 +85,25 @@ INSERT INTO `peliculas` (`id`, `nombre`, `director`, `descripcion`, `genero`) VA
 (44, 'Enfrentando fantasmas', 'Pedro Valiente', 'Un grupo de amigos se enfrenta a sus miedos en un viaje aterrador', 1),
 (45, 'Amor y rock and roll', 'María Musical', 'Una historia de amor en el mundo del rock', 4),
 (48, 'Pelicula de Prueba', 'Prueba', 'Prueba\r\n', 14);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reseñas`
+--
+
+CREATE TABLE `reseñas` (
+  `id` int(11) NOT NULL,
+  `reseña` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `reseñas`
+--
+
+INSERT INTO `reseñas` (`id`, `reseña`) VALUES
+(25, 'Medio mala'),
+(45, 'Muy buena');
 
 -- --------------------------------------------------------
 
@@ -126,6 +142,12 @@ ALTER TABLE `peliculas`
   ADD KEY `id_genero` (`genero`);
 
 --
+-- Indices de la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -149,6 +171,12 @@ ALTER TABLE `peliculas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
+-- AUTO_INCREMENT de la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -163,6 +191,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `peliculas`
   ADD CONSTRAINT `peliculas_ibfk_1` FOREIGN KEY (`genero`) REFERENCES `generos` (`id`);
+
+--
+-- Filtros para la tabla `reseñas`
+--
+ALTER TABLE `reseñas`
+  ADD CONSTRAINT `reseñas_ibfk_1` FOREIGN KEY (`id`) REFERENCES `peliculas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

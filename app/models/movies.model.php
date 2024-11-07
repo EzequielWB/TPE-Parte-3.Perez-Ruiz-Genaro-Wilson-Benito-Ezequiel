@@ -83,5 +83,21 @@ class MoviesModel {
     
 }
 
+class ReviewModel {
+
+    private $db;
+
+    public function __construct() {
+       $this->db = new PDO ('mysql:host=localhost;dbname=catalogo_peliculas;charset=utf8', 'root', '');
+    }
+
+    function getReviewMovieById($id) {
+
+        $query = $this->db->prepare('SELECT * FROM reseñas WHERE id = ?');
+        $query->execute([$id]);
+        return $query->fetchAll(PDO::FETCH_OBJ); 
+    }
+}
+
 
 
