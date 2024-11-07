@@ -59,11 +59,26 @@ class MoviesModel {
         return $query->fetchAll(PDO::FETCH_OBJ); 
     }
 
+    function getMovieById($id) {
+
+        $sql = 'SELECT * FROM peliculas WHERE id = ?';
+
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+        return $query->fetchAll(PDO::FETCH_OBJ); 
+    }
+
     public function eraseMovie($id) {
         $sql = 'DELETE FROM peliculas WHERE id = ?';
 
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
+    }
+
+    function updateMovie($id, $nombre, $director, $descripcion, $genero) {
+        
+        $query = $this->db->prepare('UPDATE peliculas SET nombre = ?, director = ?, descripcion = ?, genero = ? WHERE id = ?');
+        $query->execute([$nombre, $director, $descripcion, $genero, $id]);
     }
     
 }

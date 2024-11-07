@@ -67,14 +67,43 @@ class MovieApiController {
 
         $id = $req->params->id;
 
-        $movieGenreId = $this->model->getMoviesByGenreId($id);
+        $movieId = $this->model->getMovieById($id);
 
-        if (!$movieGenreId) {
+        if (!$movieId) {
             return $this->view->response("no existe pelicula con el genero id=$id", 404);
         }
 
         $this->model->eraseMovie($id);
         $this->view->response("La pelicula con el id=$id se elimino con exito");
+    }
+
+    public function updateMovie($req,$res) {
+
+        $id = $req->params->id;
+
+        $movieId =$this->model->getMovieById($id);
+
+        //verifica existencia
+        if (!$movieId) {
+            return $this->view->response("no existe pelicula con el genero id=$id", 404);
+        }
+
+        if (empty($req->body->nombre) || empty($req->body->director)|| empty($req->body->genero)) {
+            return $this->view->response ("faltan datos", 400);
+        }
+
+        //obtengo los datos (nombre,director,descripcion,genero)
+        $nombre = $req->body->nombre;
+        $director = $req->body->director;
+        $descripcion = $req->body->descripcion;
+        $genero = $req->body->genero;
+
+        //actualiza pelicula
+        $this->model->updateMovie($id,$nombre,$director,$descripcion,$genero);
+
+        $movieId = $this->model->getMovieById($id); //obtengo pelicula modificada
+        $this->view->response($movieId,200); //devuelvo respuesta
+
     }
 }
 
