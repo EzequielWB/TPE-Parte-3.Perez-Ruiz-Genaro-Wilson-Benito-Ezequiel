@@ -44,9 +44,17 @@ class MovieApiController {
     }
 
     function getAllMovies($req, $res){
+        
+        $orderBy = false;
+        if (isset($req->query->orderBy)) 
+            $orderBy = $req->query->orderBy;
 
-        $movies = $this->model->getMovies(); //entramos a model
+        $typeOfOrder = false;
+        if (isset($req->query->typeOfOrder)) 
+            $typeOfOrder = $req->query->typeOfOrder;
+        
 
+        $movies = $this->model->getMovies($orderBy, $typeOfOrder); //entramos a model
         return $this->view->response($movies);//Actualizo vista
     }
 

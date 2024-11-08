@@ -12,7 +12,7 @@ class GenresModel {
 
     function getGenres() {
 
-        $sql = 'SELECT * FROM generos';
+        $sql = 'SELECT * FROM generos ORDER BY generos.genero ASC';
 
         $query = $this->db->prepare($sql); //preparamos desde la base de datos
         $query->execute(); //y ejecutamos la seleccion
@@ -38,9 +38,31 @@ class MoviesModel {
        $this->db = new PDO ('mysql:host=localhost;dbname=catalogo_peliculas;charset=utf8', 'root', '');
     }
 
-    function getMovies() {
+    function getMovies($orderBy = false, $typeOfOrder = false) {
 
         $sql = 'SELECT * FROM peliculas';
+
+        if($orderBy) { // peliculas?orderBy=
+            switch ($orderBy) { //usamos un switch ya que si se ordenara directamente por parametro el sql (ORDER BY $orderBy) seria muy vulnerable desde URL
+                case 'nombre':
+                    $sql .= ' ORDER BY peliculas.nombre'; //agregar espacio al principio
+                    break;
+                case 'director':
+                    $sql .= ' ORDER BY peliculas.director';
+                    break;
+            }
+        }
+
+        if ($typeOfOrder) { //orden ascendete o descendente (peliculas?orderBy=nombre&typeOfOrder=asc)
+            switch ($typeOfOrder) {
+                case 'asc':
+                    $sql .= ' ASC';
+                    break;
+                case 'desc':
+                    $sql .= ' DESC';
+                    break;
+            }
+        }
 
         $query = $this->db->prepare($sql); //preparamos desde la base de datos
         $query->execute(); //y ejecutamos la seleccion
@@ -48,6 +70,13 @@ class MoviesModel {
         $movies = $query->fetchAll(PDO::FETCH_OBJ); //retorna como objeto
 
         return $movies; //esto se pasa al view
+    }
+
+    function getMoviesByNombre() {
+
+        $query = $this->db->prepare('SELECT * FROM peliculas ORDER BY peliculas.nombre');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
     function getMoviesByGenreId($id) {
