@@ -1,5 +1,4 @@
-#TPE PARTE 3 - WEB 2
-Parte 3 del TPE de WEB 2-TUDAI
+# TPE PARTE 3 - WEB 2
 
 # Integrantes:
 * Genaro Joaquin Perez Ruiz
