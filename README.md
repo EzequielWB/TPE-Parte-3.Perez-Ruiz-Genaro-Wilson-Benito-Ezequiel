@@ -8,7 +8,7 @@
 | METODO | ENDPOINT  | ENDPOINT | EJEMPLO | 
 | --- | --- | --- | --- |
 | GET | /generos | /peliculas | - |
-| POST | /peliculas | | |
+| POST | /peliculas | | - |
 | GET |/generos/:id | /reseñas/:id | /generos/3 |
 | PUT | /peliculas/:id | | /peliculas/4 |
 | DELETE | /peliculas/:id |  | /peliculas/4 |
