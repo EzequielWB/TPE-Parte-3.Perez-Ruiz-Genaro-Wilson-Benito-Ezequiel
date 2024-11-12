@@ -110,6 +110,11 @@ class MoviesModel {
         $query->execute([$nombre, $director, $descripcion, $genero, $id]);
     }
     
+    public function insertMovie($nombre, $director, $descripcion, $genero) {
+        $query = $this->db->prepare('INSERT INTO peliculas (nombre, director, descripcion, genero) VALUES (?, ?, ?, ?)');
+        $query->execute([$nombre, $director, $descripcion, $genero]);
+        return $this->db->lastInsertId(); // Devuelve el ID de la nueva película
+    }
 }
 
 class ReviewModel {
