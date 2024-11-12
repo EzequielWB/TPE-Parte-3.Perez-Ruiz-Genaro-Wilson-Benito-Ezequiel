@@ -71,6 +71,18 @@ class MovieApiController {
         return $this->view->response($movieGenreId);
     }
 
+    public function getMoviesById($req, $res){
+        $id = $req->params->id;
+
+        $movieId = $this->model->getMovieById($id);
+
+        if (!$movieId) {
+            return $this->view->response("no existe pelicula con el id=$id", 404);
+        }
+
+        return $this->view->response($movieId);
+    }
+
     public function deleteMovieById($req,$res) {
 
         $id = $req->params->id;
@@ -112,6 +124,27 @@ class MovieApiController {
         $movieId = $this->model->getMovieById($id); //obtengo pelicula modificada
         $this->view->response($movieId,200); //devuelvo respuesta
 
+    }
+
+    public function addMovie($req, $res) {
+        if (empty($req->body->nombre) || empty($req->body->director) || empty($req->body->genero)) {
+            return $this->view->response("Faltan datos requeridos", 400);
+        }
+    
+        // Obtiene datos del body
+        $nombre = $req->body->nombre;
+        $director = $req->body->director;
+        $descripcion = $req->body->descripcion ?? ''; // Opcional
+        $genero = $req->body->genero;
+    
+        // Llama al modelo para insertar la nueva película
+        $id = $this->model->insertMovie($nombre, $director, $descripcion, $genero);
+    
+        if ($id) {
+            return $this->view->response("Película creada con éxito, $id", 201);
+        } else {
+            return $this->view->response("Error al crear la película", 500);
+        }
     }
 }
 
